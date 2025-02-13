@@ -17,7 +17,8 @@ class HeroFactory extends Factory
     public function definition(): array
     {
         return [
-            'image' => $this->faker->imageUrl(),
+            'image' => 'https://placehold.co/640x480/' . $this->faker->randomElement(['ff0000', '00ff00', '0000ff']) .
+            '/ffffff?text=Image ' . rand(1, 100),
             'title' => $this->faker->sentence(),
             'subtitle' => $this->faker->sentence(),
             'link1' => $this->faker->url(),
