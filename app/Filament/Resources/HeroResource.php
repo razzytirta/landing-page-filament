@@ -9,12 +9,14 @@ use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -53,10 +55,20 @@ class HeroResource extends Resource
             ->columns([
                 ImageColumn::make('image'),
                 TextColumn::make('title')
-                    ->wrap(),
+                    ->wrap()
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('subtitle')
-                    ->wrap(),
-                TextColumn::make('is_active'),
+                    ->wrap()
+                    ->sortable()
+                    ->searchable(),
+                ToggleColumn::make('is_active')
+                    ->sortable()
+                    ->beforeStateUpdated(
+                        function (Hero $hero, $state) {
+                            Hero::where('id', '!=', $hero->id)->update(['is_active' => 0]);
+                        }
+                    ),
 
             ])
             ->filters([
