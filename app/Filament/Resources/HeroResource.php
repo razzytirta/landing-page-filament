@@ -53,7 +53,8 @@ class HeroResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->url(fn ($record) => asset('storage/' . $record->image)),
                 TextColumn::make('title')
                     ->wrap()
                     ->sortable()
