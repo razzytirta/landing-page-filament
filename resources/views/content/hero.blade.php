@@ -2,7 +2,7 @@
     <div class="flex flex-wrap flex-row -mx-4 justify-center">
         <!-- content -->
         <div class="flex-shrink max-w-full px-4 sm:px-12 lg:px-18 w-full sm:w-9/12 lg:w-1/2 self-center">
-            <img src="{{ Storage::url(optional($hero)->image) }}" class="w-full max-w-full h-auto" alt="creative agency">
+            <img src="{{ Storage::url($hero->image) }}" class="w-full max-w-full h-auto" alt="creative agency">
 
         </div><!-- end content -->
 
@@ -10,10 +10,11 @@
         <div class="flex-shrink max-w-full px-4 w-full md:w-9/12 lg:w-1/2 self-center lg:pr-12">
             <div class="text-center lg:text-left mt-6 lg:mt-0">
                 <div class="mb-12">
-                    <h1 class="text-4xl leading-normal text-black font-bold mb-4">{{ $mainTitle }} <span data-toggle="typed"
+                    <h1 class="text-4xl leading-normal text-black font-bold mb-4">{{ $title }} <span data-toggle="typed"
                             data-options='{"strings": [
-                            @foreach ($animationTitle as $title)
-                                "{{ $title }}"@if (!$loop->last),@endif
+                            @foreach ($animation as $item)
+                                "{{ $item }}"@if (!$loop->last),
+                                @endif
                             @endforeach
                             ]}'></span>
                     </h1>

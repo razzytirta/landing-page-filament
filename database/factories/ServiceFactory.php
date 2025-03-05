@@ -16,13 +16,22 @@ class ServiceFactory extends Factory
      */
     public function definition(): array
     {
+        // create array of svg icons from storage/dummy folder
+        $icons = [
+            'dummy/brand.svg',
+            'dummy/budget.svg',
+            'dummy/creativeAds.svg',
+            'dummy/optimize.svg',
+            'dummy/seo.svg',
+            'dummy/social.svg',
+        ];
         return [
-            // add faker forn icon
-            'icon' => 'https://picsum.photos/seed/' . $this->faker->uuid . '/640/480',
+            // use faker to generate data for image using randomElement
+            'icon' => $this->faker->unique()->randomElement($icons),
             // add faker for title
             'title' => $this->faker->sentence(2),
             // add faker for description
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->sentence(),
         ];
     }
 }

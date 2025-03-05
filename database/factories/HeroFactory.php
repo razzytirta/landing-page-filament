@@ -16,13 +16,21 @@ class HeroFactory extends Factory
      */
     public function definition(): array
     {
+        $customAnimation = [
+            "Online Marketing",
+            "Web Design",
+            "Mobile Apps",
+            "Brand Identity",
+            "Social Content"
+        ];
+
         return [
-            'image' => 'https://picsum.photos/seed/' . $this->faker->uuid . '/640/480',
-            'title' => $this->faker->sentence(),
+            'image' => 'dummy/hero.svg',
+            'title' => $this->faker->sentence() . '|' . implode('#', $customAnimation),
             'subtitle' => $this->faker->sentence(),
             'link1' => $this->faker->url(),
             'link2' => $this->faker->url(),
-            'is_active' => $this->faker->boolean(),
+            'is_active' => false,
         ];
     }
 }

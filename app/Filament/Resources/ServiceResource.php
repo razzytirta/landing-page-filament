@@ -30,9 +30,9 @@ class ServiceResource extends Resource
         return $form
             ->schema([
                 // create file upload for icon
-                FileUpload::make('icon')
-                    ->image()
-                    ->avatar(),
+                    FileUpload::make('icon')
+                        ->image()
+                        ->avatar(),
                 // create text field for title
                 TextInput::make('title')
                     ->required()
@@ -55,15 +55,17 @@ class ServiceResource extends Resource
                     ->extraAttributes(['referrerpolicy' => 'no-referrer']),
                 //add column for title
                 TextColumn::make('title')
+                    ->sortable()
                     ->searchable()
                     ->label('Title'),
                 //add column for description
                 TextColumn::make('description')
                     ->wrap()
+                    ->sortable()
                     ->searchable()
                     ->label('Description'),
-
             ])
+            ->reorderable('sort')
             ->filters([
                 //
             ])
