@@ -2,13 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PortofolioResource\Pages;
-use App\Filament\Resources\PortofolioResource\RelationManagers;
-use App\Models\Portofolio;
+use App\Filament\Resources\TeamResource\Pages;
+use App\Filament\Resources\TeamResource\RelationManagers;
+use App\Models\Team;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -19,11 +17,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-use function Livewire\wrap;
-
-class PortofolioResource extends Resource
+class TeamResource extends Resource
 {
-    protected static ?string $model = Portofolio::class;
+    protected static ?string $model = Team::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -31,20 +27,26 @@ class PortofolioResource extends Resource
     {
         return $form
             ->schema([
-                //add field for image
                 FileUpload::make('image')
                     ->image()
                     ->required(),
-                //add field for title
-                TextInput::make('title')
+                TextInput::make('name')
+                    ->label('Name')
                     ->required(),
-                //add field for description
-                Textarea::make('description')
+                TextInput::make('job_title')
+                    ->label('Job Title')
                     ->required(),
-                //add field for category_id
-                Select::make('category_id')
-                    ->relationship('category', 'name')
-                    ->native(false)
+                TextInput::make('twitter')
+                    ->label('Twitter')
+                    ->required(),
+                TextInput::make('facebook')
+                    ->label('Facebook')
+                    ->required(),
+                TextInput::make('instagram')
+                    ->label('Instagram')
+                    ->required(),
+                TextInput::make('linkedin')
+                    ->label('LinkedIn')
                     ->required(),
 
             ]);
@@ -56,26 +58,16 @@ class PortofolioResource extends Resource
             ->columns([
                 //add column for image
                 ImageColumn::make('image'),
-                //add column for title
-                TextColumn::make('title')
-                    ->searchable()
-                    ->sortable(),
-                //add column for description
-                TextColumn::make('description')
-                    ->searchable()
-                    ->wrap()
-                    ->sortable(),
-                // add name from category_id
-                TextColumn::make('category.name')
-                    ->searchable()
-                    ->sortable(),
+                TextColumn::make('name'),
+                TextColumn::make('job_title'),
+
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+            Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -94,9 +86,9 @@ class PortofolioResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPortofolios::route('/'),
-            'create' => Pages\CreatePortofolio::route('/create'),
-            'edit' => Pages\EditPortofolio::route('/{record}/edit'),
+            'index' => Pages\ListTeams::route('/'),
+            'create' => Pages\CreateTeam::route('/create'),
+            'edit' => Pages\EditTeam::route('/{record}/edit'),
         ];
     }
 }

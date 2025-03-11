@@ -13,4 +13,10 @@ class Portofolio extends Model
     //create fillable
     protected $fillable = ['title', 'description', 'image', 'category_id'];
 
+    //create relationship to PortofolioCategory
+    public function category()
+    {
+        return $this->belongsTo(PortofolioCategory::class);
+    }
+
 }

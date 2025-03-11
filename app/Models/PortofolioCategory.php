@@ -12,4 +12,11 @@ class PortofolioCategory extends Model
 
     // generate fillable array
     protected $fillable = ['name', 'slug'];
+
+    // create relationship to Portofolio
+    public function portofolios()
+    {
+        return $this->hasMany(Portofolio::class);
+    }
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
